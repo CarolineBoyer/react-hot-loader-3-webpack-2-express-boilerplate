@@ -4,17 +4,22 @@ import { AppContainer } from 'react-hot-loader';
 
 import App from './components/App';
 
-const render = Component => {
-  ReactDOM.render(
-    <AppContainer>
-      <App name="World"/>
-    </AppContainer>,
-    document.getElementById('stride-root')
-  )
-}
 
-render(App);
+ReactDOM.render(
+    <AppContainer>
+        <App />
+    </AppContainer>,
+    document.getElementById('root')
+)
 
 if (module.hot) {
-  module.hot.accept('./components/App', () => { render(App) })
+    module.hot.accept('./components/App', () => {
+        const NextApp = require('./components/App').default;
+        ReactDOM.render(
+            <AppContainer>
+                <NextApp/>
+            </AppContainer>,
+            document.getElementById('root')
+        );
+    });
 }

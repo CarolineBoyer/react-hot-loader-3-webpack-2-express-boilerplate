@@ -12,12 +12,17 @@ var compiler = webpack(webpackConfig);
 
 
 app.use(require("webpack-dev-middleware")(compiler, {
-    hot:true,
-    noInfo: true,
     publicPath: webpackConfig.output.publicPath,
+    stats: {
+        colors: true,
+    },
 }));
 
 app.use(require("webpack-hot-middleware")(compiler));
+// app.use(require("webpack-hot-middleware")(compiler, {
+//     heartbeat: 10 * 1000,
+//     log: console.log
+// }));
 
 
 app.get("*", function(req, res) {
